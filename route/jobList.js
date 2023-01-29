@@ -14,12 +14,16 @@ router.get("/job", async (request, response) => {
 });
 
 router.get("/job/api", async (request, response) => {
-  const job = request.query.job;
-  const location = "Makati";
-  const jobList = await axios.get(
-    `https://serpapi.com/search.json?engine=google_jobs&q=${job}&location=${location}&hl=en&api_key=${process.env.API_KEY}`
-  );
-  response.json(jobList.data);
+  try {
+    const job = request.query.job;
+    const location = request.query.location;
+    const jobList = await axios.get(
+      `https://serpapi.com/search.json?engine=google_jobs&q=${job}&location=${location}&hl=en&api_key=${process.env.API_KEY}`
+    );
+    response.json(jobList.data);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;
