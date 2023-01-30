@@ -16,7 +16,7 @@ router.get("/job", async (request, response) => {
 router.get("/job/api", async (request, response) => {
   try {
     const job = request.query.job;
-    const location = request.query.location;
+    const location = request.query.location || "London";
     const jobList = await axios.get(
       `https://serpapi.com/search.json?engine=google_jobs&q=${job}&location=${location}&hl=en&api_key=${process.env.API_KEY}`
     );
